@@ -11,8 +11,10 @@ Plugin for Serverless Framework v1.x which compares your locale AWS CloudFormati
 ## Usage
 
 ```bash
-serverless deploy --diff --noDeploy --stage REPLACEME --region REPLACEME
+serverless deploy diff --stage REPLACEME --region REPLACEME
 ```
+
+<img width="1255" alt="screen shot 2016-11-05 at 14 53 04" src="https://cloud.githubusercontent.com/assets/195404/20030536/9e1a552c-a367-11e6-8e6d-2043f2a5d038.png">
 
 ## Install
 
