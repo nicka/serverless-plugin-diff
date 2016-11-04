@@ -1,0 +1,27 @@
+# Runtime data
+*.log
+*.pid
+*.seed
+build
+dist
+logs
+pids
+
+# OS
+.DS_Store
+.tmp
+
+# Dotenv files
+.env
+admin.env
+
+# Dependency directory
+jspm_packages
+node_modules
+
+# Serverless V1.0
+.serverless
+
+# Reports
+coverage
+results
