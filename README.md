@@ -1,4 +1,6 @@
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
+[![Coverage-Status](https://coveralls.io/repos/github/nicka/serverless-plugin-diff/badge.svg?branch=master)](https://coveralls.io/github/nicka/serverless-plugin-diff?branch=master)
+[![Build-Status](https://travis-ci.org/nicka/serverless-plugin-diff.svg?branch=master)](https://travis-ci.org/nicka/serverless-plugin-diff)
 
 # Serverless CloudFormation Diff
 
