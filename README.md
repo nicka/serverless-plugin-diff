@@ -4,8 +4,6 @@
 
 # Serverless CloudFormation Diff
 
-WIP
-
 ## Overview
 
 Plugin for Serverless Framework v1.x which compares your locale AWS CloudFormation templates against deployed ones.
