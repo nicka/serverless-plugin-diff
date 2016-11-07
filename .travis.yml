@@ -1,14 +1,16 @@
 language: node_js
 node_js:
-- '4'
-cache:
-  directories:
-  - node_modules
+  - '4'
 branches:
   only:
-  - develop
-  - master
-  - "/^feature\\/.*$/"
-  - "/^release\\/.*$/"
+    - develop
+    - master
+    - "/^feature\\/.*$/"
+    - "/^release\\/.*$/"
 install:
-- travis_retry npm install
+  - travis_retry npm install
+after_success:
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+env:
+  global:
+    secure: vRLp1KeTDP6Xh/HtM1TbIWmyb1hiVpigJFarciT1DnTS4uVmLDtpaCNHgezWjyC/4oqmaJsXd6h5jZII5rY2299Ae2Fjj084Ohb5BqkaZrZSJDNHQ+1JnvLjCNkZgyvGRLT8hLEk7reH37Ny0L1dw/wQ5c/0wAosEQ8z3sSUucIKP5W51HAvS/ISbkRJVDsuZD7AMoBMI8RQ0SRuuhfhhN5uBxEUJeSd0pfSVFN39r/1RsBmmX/27Ew8rgp6uOeDAgH5lVYypqa96A/26Wd+Ery2tTPwh8oT3yRt/yvCgQK7vQ9hrP8cNTJBicE+KaFk2CDNHSftBhPr7KMJ4vVPCk0PJsA6b7Tm5rcaEkt2tTy8fs3HppcFISZ94zCA6Yp2ayVnBJr3Z5ZuaAb5Haqoleeq/F4OWjLy3yNvPuxsaAXUt3gebuZ7d/u2bjFcPy/+25YP5ph5sCxDSuZ81QKU7xf01kGJVd247nUnoCDSAuiiptxnp/PzoR0mSYFPKcNvp4zx4eD+Z8XyZxPHvk+y2cGzXSnxrIr8qjMPfmyKve3mH0k/t6cIupz/uhOoIFFDtz6SugA4IPx52KqokTFn34Z7iBs401LJpZdQ2mt2d8PdIpwz4SSrDTY1MilRbHx9kVybjU1qhGH2soD4nIax29CQVkxUWLein3Dxfdd61iI=
