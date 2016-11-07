@@ -1,6 +1,6 @@
 {
   "name": "serverless-plugin-diff",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Plugin for Serverless Framework v1.x which compares your locale AWS CloudFormation templates against deployed ones.",
   "main": "lib/index.js",
   "scripts": {
