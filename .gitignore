@@ -6,6 +6,7 @@ build
 dist
 logs
 pids
+*.tgz
 
 # OS
 .DS_Store

@@ -1,0 +1,39 @@
+exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff with custom diff tool 1`] = `
+"1c1
+< {\"foo\":\"bar\"}
+\\ No newline at end of file
+---
+> {\"foo\":\"foo\"}
+\\ No newline at end of file
+"
+`;
+
+exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff with custom localTemplate template 1`] = `
+"1c1
+< {\"foo\":\"custom\"}
+\\ No newline at end of file
+---
+> {\"foo\":\"foo\"}
+\\ No newline at end of file
+"
+`;
+
+exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff with defaults 1`] = `
+"1c1
+< {\"foo\":\"bar\"}
+\\ No newline at end of file
+---
+> {\"foo\":\"foo\"}
+\\ No newline at end of file
+"
+`;
+
+exports[`serverless-plugin-write-env-vars diff unsuccessfully triggers diff could not find locally compiled template 1`] = `".serverless/cloudformation-template-update-stack.json could not be found: run \"sls deploy --noDeploy\" first."`;
+
+exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template 1`] = `
+"{
+  \"foo\": \"bar\"
+}"
+`;
+
+exports[`serverless-plugin-write-env-vars downloadTemplate with unsuccessful CloudFormation call could not download deployed template 1`] = `"Stack with id foo-foo does not exist"`;

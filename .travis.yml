@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '4'
+cache:
+  directories:
+  - node_modules
+branches:
+  only:
+  - develop
+  - master
+  - "/^feature\\/.*$/"
+  - "/^release\\/.*$/"
+install:
+- travis_retry npm install
+after_success:
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage

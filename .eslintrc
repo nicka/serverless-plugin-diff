@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb-base",
+  "globals": {
+    "afterAll": true,
+    "applyToAll": true,
+    "afterEach": true,
+    "beforeAll": true,
+    "beforeEach": true,
+    "describe": true,
+    "expect": true,
+    "jest": true,
+    "register": true,
+    "it": true,
+    "test": true
+  },
+  "rules": {
+    "no-console": 0,
+    "strict": 0,
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": [
+      "error", {
+        "devDependencies": ["**/*.test.js", "**/*.spec.js"]
+      }
+    ]
+  }
+}
