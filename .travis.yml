@@ -12,4 +12,3 @@ branches:
   - "/^release\\/.*$/"
 install:
 - travis_retry npm install
-after_script: 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
