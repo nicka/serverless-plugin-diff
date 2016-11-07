@@ -1,11 +1,11 @@
 {
   "name": "serverless-plugin-diff",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Plugin for Serverless Framework v1.x which compares your locale AWS CloudFormation templates against deployed ones.",
   "main": "lib/index.js",
   "scripts": {
     "pretest": "eslint .",
-    "test": "jest --coverage"
+    "test": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "author": "Nick den Engelsman",
   "maintainers": [
