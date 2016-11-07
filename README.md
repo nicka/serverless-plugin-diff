@@ -6,7 +6,7 @@
 
 ## Overview
 
-Plugin for Serverless Framework v1.x which compares your locale AWS CloudFormation templates against deployed ones.
+Plugin for Serverless Framework v1.x which compares your local AWS CloudFormation templates against deployed ones.
 
 ## Usage
 
