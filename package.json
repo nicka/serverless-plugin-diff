@@ -18,6 +18,14 @@
   "repository": {
     "git": "https://github.com/nicka/serverless-plugin-diff"
   },
+  "homepage": "https://github.com/nicka/serverless-plugin-diff",
+  "keywords": [
+    "aws",
+    "diff",
+    "lambda",
+    "plugin",
+    "serverless"
+  ],
   "dependencies": {
     "aws-sdk": "^2.6.15",
     "child-process-promise": "^2.2.0",
