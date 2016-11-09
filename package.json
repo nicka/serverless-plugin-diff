@@ -1,6 +1,6 @@
 {
   "name": "serverless-plugin-diff",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Plugin for Serverless Framework v1.x which compares your local AWS CloudFormation templates against deployed ones.",
   "main": "lib/index.js",
   "scripts": {
@@ -18,6 +18,14 @@
   "repository": {
     "git": "https://github.com/nicka/serverless-plugin-diff"
   },
+  "homepage": "https://github.com/nicka/serverless-plugin-diff",
+  "keywords": [
+    "aws",
+    "diff",
+    "lambda",
+    "plugin",
+    "serverless"
+  ],
   "dependencies": {
     "aws-sdk": "^2.6.15",
     "child-process-promise": "^2.2.0",
