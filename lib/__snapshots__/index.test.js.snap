@@ -9,22 +9,23 @@ exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs d
 `;
 
 exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff with custom localTemplate template 1`] = `
-"1c1
-< {\"foo\":\"custom\"}
-\\ No newline at end of file
----
-> {\"foo\":\"foo\"}
-\\ No newline at end of file
+" {
+[31m-  foo: \"custom\"[39m
+[32m+  foo: \"foo\"[39m
+ }
 "
 `;
 
 exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff with defaults 1`] = `
-"1c1
-< {\"foo\":\"bar\"}
-\\ No newline at end of file
----
-> {\"foo\":\"foo\"}
-\\ No newline at end of file
+" {
+[31m-  foo: \"bar\"[39m
+[32m+  foo: \"foo\"[39m
+ }
+"
+`;
+
+exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff without changes 1`] = `
+" undefined
 "
 `;
 

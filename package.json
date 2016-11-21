@@ -16,7 +16,8 @@
   ],
   "license": "MIT",
   "repository": {
-    "git": "https://github.com/nicka/serverless-plugin-diff"
+    "type": "git",
+    "url": "https://github.com/nicka/serverless-plugin-diff"
   },
   "homepage": "https://github.com/nicka/serverless-plugin-diff",
   "keywords": [
@@ -30,6 +31,7 @@
     "aws-sdk": "^2.6.15",
     "child-process-promise": "^2.2.0",
     "fs-promise": "^0.5.0",
+    "json-diff": "^0.3.1",
     "q": "^1.4.1"
   },
   "devDependencies": {
