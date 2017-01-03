@@ -19,3 +19,4 @@ logs
 node_modules
 pids
 results
+yarn.lock
