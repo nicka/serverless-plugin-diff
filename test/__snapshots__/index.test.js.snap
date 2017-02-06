@@ -43,4 +43,10 @@ exports[`serverless-plugin-write-env-vars downloadTemplate with successful Cloud
 }"
 `;
 
+exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template with preV1Resources flag 1`] = `
+"{
+  \"foo\": \"bar\"
+}"
+`;
+
 exports[`serverless-plugin-write-env-vars downloadTemplate with unsuccessful CloudFormation call could not download deployed template 1`] = `"Stack with id foo-foo does not exist"`;

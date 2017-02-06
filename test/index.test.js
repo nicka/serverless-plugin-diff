@@ -76,6 +76,18 @@ describe('serverless-plugin-write-env-vars', () => {
               .then(data => expect(data).toMatchSnapshot())
           );
       });
+
+      it('downloads currently deployed template with preV1Resources flag', () => {
+        const sls = Object.assign({}, slsDefaults);
+        sls.service.provider = { preV1Resources: true };
+        const plugin = new Plugin(sls, {});
+
+        return plugin.downloadTemplate()
+          .then(() =>
+            fs.readFile(`${templatePrefix}.org.json`, { encoding: 'utf8' })
+              .then(data => expect(data).toMatchSnapshot())
+          );
+      });
     });
 
     describe('with unsuccessful CloudFormation call', () => {
