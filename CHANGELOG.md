@@ -1,5 +1,12 @@
 # Changelog - serverless-plugin-diff
 
+<a name="1.3.0"></a>
+## 6 February 2017: v1.3.0
+
+Remove Q package dependency and add support for upcoming `stackName` property -- [@nicka][@nicka]
+
+---
+
 <a name="1.2.1"></a>
 ## 2 December 2016: v1.2.1
 
