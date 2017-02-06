@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk-mock');
 const fs = require('fs-promise');
-const Plugin = require('./index');
+const Plugin = require('../lib/index');
 
 const slsDir = '.serverless';
 const templatePrefix = `${slsDir}/cloudformation-template-update-stack`;
@@ -64,6 +64,18 @@ describe('serverless-plugin-write-env-vars', () => {
               .then(data => expect(data).toMatchSnapshot())
           );
       });
+
+      it('downloads currently deployed template with custom stackName', () => {
+        const sls = Object.assign({}, slsDefaults);
+        sls.service.provider = { stackName: 'foo-r' };
+        const plugin = new Plugin(sls, {});
+
+        return plugin.downloadTemplate()
+          .then(() =>
+            fs.readFile(`${templatePrefix}.org.json`, { encoding: 'utf8' })
+              .then(data => expect(data).toMatchSnapshot())
+          );
+      });
     });
 
     describe('with unsuccessful CloudFormation call', () => {
@@ -106,7 +118,7 @@ describe('serverless-plugin-write-env-vars', () => {
       });
     });
 
-    describe('successfully triggers diff', () => {
+    describe('runs diff with custom localTemplate template', () => {
       const customTemplate = `${templatePrefix}-foo.json`;
       const customOrgTemplate = `${templatePrefix}-foo.org.json`;
 
@@ -115,7 +127,7 @@ describe('serverless-plugin-write-env-vars', () => {
           .then(() => fs.writeFile(customOrgTemplate, '{"foo":"custom"}'))
       );
 
-      it('runs diff with custom localTemplate template', () => {
+      it('successfully triggers diff', () => {
         const plugin = new Plugin(slsDefaults, {
           localTemplate: customTemplate,
         });
@@ -125,7 +137,7 @@ describe('serverless-plugin-write-env-vars', () => {
       });
     });
 
-    describe('successfully triggers diff', () => {
+    describe('runs diff without changes', () => {
       const customTemplate = `${templatePrefix}-foo.json`;
       const customOrgTemplate = `${templatePrefix}-foo.org.json`;
 
@@ -134,7 +146,7 @@ describe('serverless-plugin-write-env-vars', () => {
           .then(() => fs.writeFile(customOrgTemplate, '{"foo":"foo"}'))
       );
 
-      it('runs diff without changes', () => {
+      it('successfully triggers diff', () => {
         const plugin = new Plugin(slsDefaults, {
           localTemplate: customTemplate,
         });
@@ -144,10 +156,10 @@ describe('serverless-plugin-write-env-vars', () => {
       });
     });
 
-    describe('unsuccessfully triggers diff', () => {
+    describe('could not find locally compiled template', () => {
       beforeEach(() => fs.unlink(exampleTemplate));
 
-      it('could not find locally compiled template', () => {
+      it('unsuccessfully triggers diff', () => {
         const plugin = new Plugin(slsDefaults, {});
 
         return plugin.diff()
