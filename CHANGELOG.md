@@ -1,5 +1,12 @@
 # Changelog - serverless-plugin-diff
 
+<a name="3.0.0"></a>
+## 6 February 2017: v3.0.0
+
+Made the plugin ready for Serverless v3.* and removed custom options from the CLI command -- [@nicka][@nicka]
+
+---
+
 <a name="1.3.0"></a>
 ## 6 February 2017: v1.3.0
 

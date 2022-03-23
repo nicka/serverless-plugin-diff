@@ -1,51 +1,32 @@
-exports[`serverless-plugin-write-env-vars diff could not find locally compiled template unsuccessfully triggers diff 1`] = `".serverless/cloudformation-template-update-stack.json could not be found: run \"sls deploy --noDeploy\" first."`;
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`serverless-plugin-write-env-vars diff runs diff with custom localTemplate template successfully triggers diff 1`] = `
-" {
-[31m-  foo: \"custom\"[39m
-[32m+  foo: \"foo\"[39m
- }
-"
-`;
+exports[`serverless-plugin-write-env-vars diff could not find locally compiled template unsuccessfully triggers diff 1`] = `".serverless/cloudformation-template-update-stack.json could not be found: run \\"sls deploy --noDeploy\\" first."`;
 
-exports[`serverless-plugin-write-env-vars diff runs diff without changes successfully triggers diff 1`] = `
-" undefined
-"
-`;
-
-exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff with custom diff tool 1`] = `
-"1c1
-< {\"foo\":\"bar\"}
-\\ No newline at end of file
----
-> {\"foo\":\"foo\"}
-\\ No newline at end of file
-"
-`;
+exports[`serverless-plugin-write-env-vars diff runs diff without changes successfully triggers diff 1`] = `Object {}`;
 
 exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff with defaults 1`] = `
 " {
-[31m-  foo: \"bar\"[39m
-[32m+  foo: \"foo\"[39m
+[31m-  foo: \\"bar\\"[39m
+[32m+  foo: \\"foo\\"[39m
  }
 "
 `;
 
 exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template 1`] = `
 "{
-  \"foo\": \"bar\"
+  \\"foo\\": \\"bar\\"
 }"
 `;
 
 exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template with custom stackName 1`] = `
 "{
-  \"foo\": \"bar\"
+  \\"foo\\": \\"bar\\"
 }"
 `;
 
 exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template with preV1Resources flag 1`] = `
 "{
-  \"foo\": \"bar\"
+  \\"foo\\": \\"bar\\"
 }"
 `;
 
