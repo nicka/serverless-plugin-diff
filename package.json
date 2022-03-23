@@ -1,7 +1,7 @@
 {
   "name": "serverless-plugin-diff",
-  "version": "1.3.0",
-  "description": "Plugin for Serverless Framework v1.x which compares your local AWS CloudFormation templates against deployed ones.",
+  "version": "3.0.0",
+  "description": "Plugin for Serverless Framework v3.x which compares your local AWS CloudFormation templates against deployed ones.",
   "main": "lib/index.js",
   "scripts": {
     "pretest": "eslint .",
@@ -28,17 +28,19 @@
   ],
   "dependencies": {
     "aws-sdk": "^2.6.15",
-    "child-process-promise": "^2.2.0",
     "fs-promise": "^0.5.0",
-    "json-diff": "^0.3.1"
+    "json-diff": "^0.7.3"
   },
   "devDependencies": {
     "aws-sdk-mock": "^1.5.0",
     "coveralls": "^2.11.14",
-    "eslint": "^3.8.1",
-    "eslint-config-airbnb-base": "^9.0.0",
-    "eslint-plugin-import": "^2.0.1",
-    "jest": "^16.0.2"
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "jest": "^27.5.1"
+  },
+  "peerDependencies": {
+    "serverless": "^2.60 || 3"
   },
   "jest": {
     "bail": true,
@@ -51,7 +53,7 @@
         "statements": 90
       }
     },
-    "testPathDirs": ["test"],
+    "roots": ["test"],
     "verbose": true
   }
 }

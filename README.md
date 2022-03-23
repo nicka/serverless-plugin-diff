@@ -6,7 +6,7 @@
 
 ## Overview
 
-Plugin for Serverless Framework v1.x which compares your local AWS CloudFormation templates against deployed ones.
+Plugin for Serverless Framework v3.x which compares your local AWS CloudFormation templates against deployed ones.
 
 # Usage
 
@@ -15,25 +15,6 @@ serverless diff --stage REPLACEME [--region REPLACEME]
 ```
 
 <img width="1255" alt="screen shot 2016-11-05 at 14 53 04" src="https://cloud.githubusercontent.com/assets/195404/20030536/9e1a552c-a367-11e6-8e6d-2043f2a5d038.png">
-
-## Command options
-
-```bash
---diffTool ksdiff
-```
-
-Custom diff tool:
-
->Defaults to `diff`
-
-
-```bash
---localTemplate foo.json
-```
-
-Custom CloudFormation template to diff against:
-
->Defaults to `./serverless/cloudformation-template-update-stack.json`
 
 # Install
 
