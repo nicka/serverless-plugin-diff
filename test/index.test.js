@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk-mock');
-const fs = require('fs-promise');
+const fs = require('fs-extra');
 const Plugin = require('../lib/index');
 
 const slsDir = '.serverless';
@@ -32,8 +32,8 @@ describe('serverless-plugin-write-env-vars', () => {
 
       expect(plugin.options.stage).toBe('foo');
       expect(plugin.options.region).toBe('eu-west-1');
-      expect(plugin.localTemplate).toBe(`${templatePrefix}.json`);
-      expect(plugin.orgTemplate).toBe(`${templatePrefix}.org.json`);
+      expect(plugin.newTemplate).toBe(`${templatePrefix}.json`);
+      expect(plugin.oldTemplate).toBe(`${templatePrefix}.org.json`);
     });
 
     it('registers the appropriate hooks', () => {
