@@ -1,8 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`serverless-plugin-write-env-vars diff could not find locally compiled template unsuccessfully triggers diff 1`] = `".serverless/cloudformation-template-update-stack.json could not be found: run \"sls package\" first."`;
+exports[`serverless-plugin-diff diffCmd with successful CloudFormation call downloads currently deployed template 1`] = `
+{
+  "foo": "bar",
+}
+`;
 
-exports[`serverless-plugin-write-env-vars diff runs diff without changes successfully triggers diff 1`] = `
+exports[`serverless-plugin-diff diffCmd with successful CloudFormation call downloads currently deployed template with custom stackName 1`] = `
+{
+  "foo": "bar",
+}
+`;
+
+exports[`serverless-plugin-diff diffCmd with successful CloudFormation call downloads currently deployed template with preV1Resources flag 1`] = `
+{
+  "foo": "bar",
+}
+`;
+
+exports[`serverless-plugin-diff templateDiff runs diff without changes successfully triggers diff 1`] = `
 TemplateDiff {
   "conditions": DifferenceCollection {
     "diffs": {},
@@ -56,7 +72,7 @@ TemplateDiff {
 }
 `;
 
-exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff with defaults 1`] = `
+exports[`serverless-plugin-diff templateDiff successfully triggers diff runs diff with defaults 1`] = `
 TemplateDiff {
   "conditions": DifferenceCollection {
     "diffs": {},
@@ -105,33 +121,9 @@ TemplateDiff {
     },
   },
   "unknown": DifferenceCollection {
-    "diffs": {
-      "foo": Difference {
-        "isDifferent": true,
-        "newValue": "foo",
-        "oldValue": "bar",
-      },
-    },
+    "diffs": {},
   },
 }
 `;
 
-exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template 1`] = `
-"{
-  \"foo\": \"bar\"
-}"
-`;
-
-exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template with custom stackName 1`] = `
-"{
-  \"foo\": \"bar\"
-}"
-`;
-
-exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template with preV1Resources flag 1`] = `
-"{
-  \"foo\": \"bar\"
-}"
-`;
-
-exports[`serverless-plugin-write-env-vars downloadTemplate with unsuccessful CloudFormation call could not download deployed template 1`] = `"Stack with id foo-foo does not exist"`;
+exports[`serverless-plugin-diff templateDiff unable to find locally compiled template unsuccessfully triggers diff 1`] = `"non-existent.json could not be found"`;

@@ -1,11 +1,11 @@
-const AWS = require('aws-sdk-mock');
+const AWSMock = require('aws-sdk-mock');
+const AWS = require('aws-sdk');
 const fs = require('fs-extra');
 const Plugin = require('../lib/index');
 
 const slsDir = '.serverless';
 const templatePrefix = `${slsDir}/cloudformation-template-update-stack`;
 const exampleTemplate = `${templatePrefix}.json`;
-const exampleOrgTemplate = `${templatePrefix}.org.json`;
 const slsDefaults = {
   service: {
     service: 'foo',
@@ -25,106 +25,100 @@ beforeAll(() => {
   }
 });
 
-describe('serverless-plugin-write-env-vars', () => {
-  describe('constructor', () => {
-    it('sets the correct defaults', () => {
-      const plugin = new Plugin(slsDefaults, {});
+beforeEach(() => fs.writeFileSync(exampleTemplate, '{"foo":"foo"}'));
 
+describe('serverless-plugin-diff', () => {
+  describe('constructor', () => {
+    test('sets the correct defaults', () => {
+      const plugin = new Plugin(slsDefaults, {});
       expect(plugin.options.stage).toBe('foo');
       expect(plugin.options.region).toBe('eu-west-1');
-      expect(plugin.newTemplate).toBe(`${templatePrefix}.json`);
-      expect(plugin.oldTemplate).toBe(`${templatePrefix}.org.json`);
+      expect(plugin.newTemplateFile).toBe(exampleTemplate);
     });
 
-    it('registers the appropriate hooks', () => {
+    test('registers the appropriate hooks', () => {
       const plugin = new Plugin(slsDefaults, {});
-
       expect(typeof plugin.hooks['before:diff:diff']).toBe('function');
       expect(typeof plugin.hooks['diff:diff']).toBe('function');
     });
   });
 
-  describe('downloadTemplate', () => {
-    afterEach(() => AWS.restore('CloudFormation'));
-
+  describe('diffCmd', () => {
     describe('with successful CloudFormation call', () => {
-      beforeEach(() => AWS.mock('CloudFormation', 'getTemplate', {
-        TemplateBody: '{"foo":"bar"}',
-      }));
-
-      it('downloads currently deployed template', () => {
-        const plugin = new Plugin(slsDefaults, {});
-
-        return plugin.downloadTemplate()
-          .then(() => fs.readFile(`${templatePrefix}.org.json`, { encoding: 'utf8' })
-            .then((data) => expect(data).toMatchSnapshot()));
+      beforeEach(() => {
+        AWSMock.setSDKInstance(AWS);
+        AWSMock.mock('CloudFormation', 'getTemplate', (params, callback) => {
+          callback(null, { TemplateBody: '{"foo":"bar"}' });
+        });
       });
 
-      it('downloads currently deployed template with custom stackName', () => {
+      test('downloads currently deployed template', () => {
+        const plugin = new Plugin(slsDefaults, {});
+
+        return plugin.diffCmd()
+          .then((data) => expect(data).toMatchSnapshot());
+      });
+
+      test('downloads currently deployed template with custom stackName', () => {
         const sls = { ...slsDefaults };
         sls.service.provider = { stackName: 'foo-r' };
         const plugin = new Plugin(sls, {});
 
-        return plugin.downloadTemplate()
-          .then(() => fs.readFile(`${templatePrefix}.org.json`, { encoding: 'utf8' })
-            .then((data) => expect(data).toMatchSnapshot()));
+        return plugin.diffCmd()
+          .then((data) => expect(data).toMatchSnapshot());
       });
 
-      it('downloads currently deployed template with preV1Resources flag', () => {
+      test('downloads currently deployed template with preV1Resources flag', () => {
         const sls = { ...slsDefaults };
         sls.service.provider = { preV1Resources: true };
         const plugin = new Plugin(sls, {});
 
-        return plugin.downloadTemplate()
-          .then(() => fs.readFile(`${templatePrefix}.org.json`, { encoding: 'utf8' })
-            .then((data) => expect(data).toMatchSnapshot()));
+        return plugin.diffCmd()
+          .then((data) => expect(data).toMatchSnapshot());
       });
     });
 
     describe('with unsuccessful CloudFormation call', () => {
-      beforeEach(() => AWS.mock('CloudFormation', 'getTemplate', (Object, callback) => callback(new Error('Stack with id foo-foo does not exist'), null)));
+      beforeEach(() => {
+        fs.writeFile(exampleTemplate, '{"foo":"foo"}').then(() => {
+          AWSMock.setSDKInstance(AWS);
+          AWSMock.mock('CloudFormation', 'getTemplate', (Object, callback) => {
+            callback({
+              message: 'Stack with id foo-foo does not exist',
+              code: 'ValidationError',
+            }, null);
+          });
+        });
+      });
 
-      it('could not download deployed template', () => {
+      test('could not download deployed template', () => {
         const plugin = new Plugin(slsDefaults, {});
 
-        return plugin.downloadTemplate()
+        return plugin.diffCmd()
           .catch((err) => expect(err).toMatchSnapshot());
       });
     });
   });
-
-  describe('diff', () => {
-    describe('successfully triggers diff', () => {
-      beforeEach(() => fs.writeFile(exampleTemplate, '{"foo":"foo"}')
-        .then(() => fs.writeFile(exampleOrgTemplate, '{"foo":"bar"}')));
-
-      it('runs diff with defaults', () => {
-        const plugin = new Plugin(slsDefaults, {});
-
-        return plugin.diff()
-          .then((data) => expect(data).toMatchSnapshot());
-      });
-    });
-
+  describe('templateDiff', () => {
     describe('runs diff without changes', () => {
-      beforeEach(() => fs.writeFile(exampleTemplate, '{"foo":"foo"}')
-        .then(() => fs.writeFile(exampleOrgTemplate, '{"foo":"foo"}')));
-
-      it('successfully triggers diff', () => {
+      test('successfully triggers diff', () => {
         const plugin = new Plugin(slsDefaults, {});
-
-        return plugin.diff()
+        return plugin.templateDiff({ foo: 'foo' })
           .then((data) => expect(data).toMatchSnapshot());
       });
     });
-
-    describe('could not find locally compiled template', () => {
-      beforeEach(() => fs.unlink(exampleTemplate));
-
-      it('unsuccessfully triggers diff', () => {
+    describe('successfully triggers diff', () => {
+      test('runs diff with defaults', () => {
         const plugin = new Plugin(slsDefaults, {});
-
-        return plugin.diff()
+        return plugin.templateDiff({ foo: 'foo' })
+          .then((data) => expect(data).toMatchSnapshot());
+      });
+    });
+    describe('unable to find locally compiled template', () => {
+      test('unsuccessfully triggers diff', () => {
+        const plugin = new Plugin(slsDefaults, {});
+        plugin.newTemplateFile = 'non-existent.json';
+        return plugin.templateDiff({})
           .catch((err) => expect(err).toMatchSnapshot());
       });
     });
