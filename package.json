@@ -29,9 +29,10 @@
   "dependencies": {
     "@aws-cdk/cloud-assembly-schema": "^2.53.0",
     "@aws-cdk/cloudformation-diff": "^2.53.0",
-    "aws-sdk": "^2.1268.0",
+    "aws-sdk": "^2.1273.0",
     "chalk": "^4.1.0",
-    "fs-extra": "^11.1.0"
+    "fs-extra": "^11.1.0",
+    "jsonpath-plus": "^7.2.0"
   },
   "devDependencies": {
     "aws-sdk-mock": "^5.8.0",
@@ -49,10 +50,10 @@
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
-        "branches": 60,
-        "functions": 60,
-        "lines": 60,
-        "statements": 60
+        "branches": 50,
+        "functions": 50,
+        "lines": 50,
+        "statements": 50
       }
     },
     "roots": [
