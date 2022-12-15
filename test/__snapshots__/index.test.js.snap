@@ -1,33 +1,129 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`serverless-plugin-write-env-vars diff could not find locally compiled template unsuccessfully triggers diff 1`] = `".serverless/cloudformation-template-update-stack.json could not be found: run \\"sls deploy --noDeploy\\" first."`;
-
-exports[`serverless-plugin-write-env-vars diff runs diff without changes successfully triggers diff 1`] = `Object {}`;
-
-exports[`serverless-plugin-write-env-vars diff successfully triggers diff runs diff with defaults 1`] = `
-" {
-[31m-  foo: \\"bar\\"[39m
-[32m+  foo: \\"foo\\"[39m
- }
-"
+exports[`serverless-plugin-diff diffCmd with successful CloudFormation call downloads currently deployed template 1`] = `
+{
+  "foo": "bar",
+}
 `;
 
-exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template 1`] = `
-"{
-  \\"foo\\": \\"bar\\"
-}"
+exports[`serverless-plugin-diff diffCmd with successful CloudFormation call downloads currently deployed template with custom stackName 1`] = `
+{
+  "foo": "bar",
+}
 `;
 
-exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template with custom stackName 1`] = `
-"{
-  \\"foo\\": \\"bar\\"
-}"
+exports[`serverless-plugin-diff diffCmd with successful CloudFormation call downloads currently deployed template with preV1Resources flag 1`] = `
+{
+  "foo": "bar",
+}
 `;
 
-exports[`serverless-plugin-write-env-vars downloadTemplate with successful CloudFormation call downloads currently deployed template with preV1Resources flag 1`] = `
-"{
-  \\"foo\\": \\"bar\\"
-}"
+exports[`serverless-plugin-diff templateDiff runs diff without changes successfully triggers diff 1`] = `
+TemplateDiff {
+  "conditions": DifferenceCollection {
+    "diffs": {},
+  },
+  "iamChanges": IamChanges {
+    "managedPolicies": DiffableCollection {
+      "additions": [],
+      "newElements": [],
+      "oldElements": [],
+      "removals": [],
+    },
+    "statements": DiffableCollection {
+      "additions": [],
+      "newElements": [],
+      "oldElements": [],
+      "removals": [],
+    },
+  },
+  "mappings": DifferenceCollection {
+    "diffs": {},
+  },
+  "metadata": DifferenceCollection {
+    "diffs": {},
+  },
+  "outputs": DifferenceCollection {
+    "diffs": {},
+  },
+  "parameters": DifferenceCollection {
+    "diffs": {},
+  },
+  "resources": DifferenceCollection {
+    "diffs": {},
+  },
+  "securityGroupChanges": SecurityGroupChanges {
+    "egress": DiffableCollection {
+      "additions": [],
+      "newElements": [],
+      "oldElements": [],
+      "removals": [],
+    },
+    "ingress": DiffableCollection {
+      "additions": [],
+      "newElements": [],
+      "oldElements": [],
+      "removals": [],
+    },
+  },
+  "unknown": DifferenceCollection {
+    "diffs": {},
+  },
+}
 `;
 
-exports[`serverless-plugin-write-env-vars downloadTemplate with unsuccessful CloudFormation call could not download deployed template 1`] = `"Stack with id foo-foo does not exist"`;
+exports[`serverless-plugin-diff templateDiff successfully triggers diff runs diff with defaults 1`] = `
+TemplateDiff {
+  "conditions": DifferenceCollection {
+    "diffs": {},
+  },
+  "iamChanges": IamChanges {
+    "managedPolicies": DiffableCollection {
+      "additions": [],
+      "newElements": [],
+      "oldElements": [],
+      "removals": [],
+    },
+    "statements": DiffableCollection {
+      "additions": [],
+      "newElements": [],
+      "oldElements": [],
+      "removals": [],
+    },
+  },
+  "mappings": DifferenceCollection {
+    "diffs": {},
+  },
+  "metadata": DifferenceCollection {
+    "diffs": {},
+  },
+  "outputs": DifferenceCollection {
+    "diffs": {},
+  },
+  "parameters": DifferenceCollection {
+    "diffs": {},
+  },
+  "resources": DifferenceCollection {
+    "diffs": {},
+  },
+  "securityGroupChanges": SecurityGroupChanges {
+    "egress": DiffableCollection {
+      "additions": [],
+      "newElements": [],
+      "oldElements": [],
+      "removals": [],
+    },
+    "ingress": DiffableCollection {
+      "additions": [],
+      "newElements": [],
+      "oldElements": [],
+      "removals": [],
+    },
+  },
+  "unknown": DifferenceCollection {
+    "diffs": {},
+  },
+}
+`;
+
+exports[`serverless-plugin-diff templateDiff unable to find locally compiled template unsuccessfully triggers diff 1`] = `"non-existent.json could not be found"`;

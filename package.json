@@ -27,17 +27,20 @@
     "serverless"
   ],
   "dependencies": {
-    "aws-sdk": "^2.6.15",
-    "fs-promise": "^0.5.0",
-    "json-diff": "^0.7.3"
+    "@aws-cdk/cloud-assembly-schema": "^2.53.0",
+    "@aws-cdk/cloudformation-diff": "^2.53.0",
+    "aws-sdk": "^2.1273.0",
+    "chalk": "^4.1.0",
+    "fs-extra": "^11.1.0",
+    "jsonpath-plus": "^7.2.0"
   },
   "devDependencies": {
-    "aws-sdk-mock": "^1.5.0",
-    "coveralls": "^2.11.14",
-    "eslint": "^8.11.0",
+    "aws-sdk-mock": "^5.8.0",
+    "coveralls": "^3.1.1",
+    "eslint": "^8.29.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "jest": "^27.5.1"
+    "eslint-plugin-import": "^2.26.0",
+    "jest": "^29.3.1"
   },
   "peerDependencies": {
     "serverless": "^2.60 || 3"
@@ -47,13 +50,15 @@
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
-        "branches": 80,
-        "functions": 90,
-        "lines": 90,
-        "statements": 90
+        "branches": 50,
+        "functions": 50,
+        "lines": 50,
+        "statements": 50
       }
     },
-    "roots": ["test"],
+    "roots": [
+      "test"
+    ],
     "verbose": true
   }
 }
