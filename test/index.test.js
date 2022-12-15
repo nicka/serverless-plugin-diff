@@ -4,20 +4,9 @@ const fs = require('fs-extra');
 const Plugin = require('../lib/index');
 
 const slsDir = '.serverless';
-const templatePrefix = `${slsDir}/cloudformation-template-update-stack`;
-const exampleTemplate = `${templatePrefix}.json`;
-const slsDefaults = {
-  service: {
-    service: 'foo',
-    defaults: {
-      stage: 'foo',
-      region: 'eu-west-1',
-    },
-  },
-  cli: {
-    log: jest.fn(),
-  },
-};
+const templatePrefix = 'cloudformation-template-update-stack';
+const exampleTemplate = `${slsDir}/${templatePrefix}.json`;
+const exampleBase = `${templatePrefix}.json`;
 
 beforeAll(() => {
   if (!fs.existsSync(slsDir)) {
@@ -25,19 +14,44 @@ beforeAll(() => {
   }
 });
 
-beforeEach(() => fs.writeFileSync(exampleTemplate, '{"foo":"foo"}'));
+let serverless;
+
+beforeEach(() => {
+  fs.writeFileSync(exampleTemplate, '{"foo":"foo"}');
+  serverless = {
+    serviceDir: '',
+    service: {
+      provider: {
+        name: 'test',
+        stage: 'foo',
+        region: 'eu-west-1',
+        naming: {
+          getStackName: () => 'test',
+          getCompiledTemplateFileName: () => exampleBase,
+        },
+      },
+    },
+    cli: {
+      log: jest.fn(),
+    },
+  };
+  serverless.getProvider = (providerName) => {
+    console.log(`using ${providerName} provider`);
+    return serverless.service.provider;
+  };
+});
 
 describe('serverless-plugin-diff', () => {
   describe('constructor', () => {
     test('sets the correct defaults', () => {
-      const plugin = new Plugin(slsDefaults, {});
+      const plugin = new Plugin(serverless, {});
       expect(plugin.options.stage).toBe('foo');
       expect(plugin.options.region).toBe('eu-west-1');
       expect(plugin.newTemplateFile).toBe(exampleTemplate);
     });
 
     test('registers the appropriate hooks', () => {
-      const plugin = new Plugin(slsDefaults, {});
+      const plugin = new Plugin(serverless, {});
       expect(typeof plugin.hooks['before:diff:diff']).toBe('function');
       expect(typeof plugin.hooks['diff:diff']).toBe('function');
     });
@@ -53,25 +67,21 @@ describe('serverless-plugin-diff', () => {
       });
 
       test('downloads currently deployed template', () => {
-        const plugin = new Plugin(slsDefaults, {});
+        const plugin = new Plugin(serverless, {});
 
         return plugin.diffCmd()
           .then((data) => expect(data).toMatchSnapshot());
       });
 
       test('downloads currently deployed template with custom stackName', () => {
-        const sls = { ...slsDefaults };
-        sls.service.provider = { stackName: 'foo-r' };
-        const plugin = new Plugin(sls, {});
+        const plugin = new Plugin(serverless, {});
 
         return plugin.diffCmd()
           .then((data) => expect(data).toMatchSnapshot());
       });
 
       test('downloads currently deployed template with preV1Resources flag', () => {
-        const sls = { ...slsDefaults };
-        sls.service.provider = { preV1Resources: true };
-        const plugin = new Plugin(sls, {});
+        const plugin = new Plugin(serverless, {});
 
         return plugin.diffCmd()
           .then((data) => expect(data).toMatchSnapshot());
@@ -92,7 +102,7 @@ describe('serverless-plugin-diff', () => {
       });
 
       test('could not download deployed template', () => {
-        const plugin = new Plugin(slsDefaults, {});
+        const plugin = new Plugin(serverless, {});
 
         return plugin.diffCmd()
           .catch((err) => expect(err).toMatchSnapshot());
@@ -102,21 +112,21 @@ describe('serverless-plugin-diff', () => {
   describe('templateDiff', () => {
     describe('runs diff without changes', () => {
       test('successfully triggers diff', () => {
-        const plugin = new Plugin(slsDefaults, {});
+        const plugin = new Plugin(serverless, {});
         return plugin.templateDiff({ foo: 'foo' })
           .then((data) => expect(data).toMatchSnapshot());
       });
     });
     describe('successfully triggers diff', () => {
       test('runs diff with defaults', () => {
-        const plugin = new Plugin(slsDefaults, {});
+        const plugin = new Plugin(serverless, {});
         return plugin.templateDiff({ foo: 'foo' })
           .then((data) => expect(data).toMatchSnapshot());
       });
     });
     describe('unable to find locally compiled template', () => {
       test('unsuccessfully triggers diff', () => {
-        const plugin = new Plugin(slsDefaults, {});
+        const plugin = new Plugin(serverless, {});
         plugin.newTemplateFile = 'non-existent.json';
         return plugin.templateDiff({})
           .catch((err) => expect(err).toMatchSnapshot());
